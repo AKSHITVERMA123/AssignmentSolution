@@ -1,0 +1,58 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
+public class SampleGenerationSimulator {
+    
+    public static void main(String[] args) {
+        int numSamples = 20;
+        List<Integer> samples = generateSamples(numSamples);
+        
+        System.out.println("Generated samples: " + samples);
+        System.out.println("--- Analysis ---");
+        analyzeSamples(samples);
+    }
+    
+    public static List<Integer> generateSamples(int numSamples) {
+        List<Integer> samples = new ArrayList<>();
+        Random random = new Random();
+        
+        for (int i = 0; i < numSamples; i++) {
+            int sample = random.nextInt(3); // 0 represents 0, 1 represents 1, 2 represents missing data
+            samples.add(sample == 2 ? null : sample); // Represent missing data by null
+        }
+        
+        return samples;
+    }
+    
+    public static void analyzeSamples(List<Integer> samples) {
+        int onesCount = 0;
+        int zerosCount = 0;
+        int maxContinuousOnes = 0;
+        int maxContinuousZeros = 0;
+        int continuousOnes = 0;
+        int continuousZeros = 0;
+        
+        for (Integer sample : samples) {
+            if (sample == null) {
+                continuousOnes = 0;
+                continuousZeros = 0;
+            } else if (sample == 1) {
+                onesCount++;
+                continuousOnes++;
+                continuousZeros = 0;
+                maxContinuousOnes = Math.max(maxContinuousOnes, continuousOnes);
+            } else if (sample == 0) {
+                zerosCount++;
+                continuousZeros++;
+                continuousOnes = 0;
+                maxContinuousZeros = Math.max(maxContinuousZeros, continuousZeros);
+            }
+        }
+        
+        System.out.println("Number of 1s: " + onesCount);
+        System.out.println("Number of 0s: " + zerosCount);
+        System.out.println("Max Continuous 1s: " + maxContinuousOnes);
+        System.out.println("Max Continuous 0s: " + maxContinuousZeros);
+    }
+}
