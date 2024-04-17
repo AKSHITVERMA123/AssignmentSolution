@@ -1,6 +1,4 @@
-// import React from "react";
-
-const apiKey = 'YOUR_API_KEY'; // Replace with your OpenWeatherMap API key
+const apiKey = '1243'; 
 
 const GetLocationTemperature = async (location) => {
   const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=${apiKey}&units=metric`;
@@ -21,14 +19,3 @@ const GetLocationTemperature = async (location) => {
   }
 };
 export default GetLocationTemperature;
-// Example usage
-const location = 'London';
-GetLocationTemperature(location)
-  .then(temperature => {
-    if (temperature !== null) {
-      console.log(`Current temperature in ${location}: ${temperature}°C`);
-    } else {
-      console.log('Failed to fetch temperature data');
-    }
-  });
-

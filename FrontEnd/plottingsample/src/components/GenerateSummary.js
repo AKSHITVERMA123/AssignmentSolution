@@ -1,40 +1,42 @@
-import React from "react";
-
+import sampleData from '../Database/sampledata.json';
 const GenerateSummary = (data) => {
-    let onesCount = 0;
-    let zerosCount = 0;
-    let continuousOnes = 0;
-    let continuousZeros = 0;
-    let maxContinuousOnes = 0;
-    let maxContinuousZeros = 0;
+  let onesCount=0,zerosCount=0,continuousOnes=0,continuousZeros=0,maxContinuousOnes=0,maxContinuousZeros=0;
+    const d= [{
+     onesCount,
+     zerosCount,
+     continuousOnes,
+     continuousZeros,
+     maxContinuousOnes,
+     maxContinuousZeros,
+    }];
+
   
     for (let i = 0; i < data.length; i++) {
-      if (data[i] === 1) {
-        onesCount++;
-        continuousOnes++;
-        continuousZeros = 0;
-        maxContinuousOnes = Math.max(maxContinuousOnes, continuousOnes);
-      } else if (data[i] === 0) {
-        zerosCount++;
-        continuousZeros++;
-        continuousOnes = 0;
-        maxContinuousZeros = Math.max(maxContinuousZeros, continuousZeros);
+      if (data[i].vibration >= 1) {
+        d.onesCount++;
+        d.continuousOnes++;
+        d.continuousZeros = 0;
+        d.maxContinuousOnes = Math.max(d.maxContinuousOnes, d.continuousOnes);
+      } else if (data[i].vibration < 0) {
+        d.zerosCount++;
+        d.continuousZeros++;
+        d.continuousOnes = 0;
+        d.maxContinuousZeros = Math.max(d.maxContinuousZeros, d.continuousZeros);
       }
     }
   
     return {
-      "Number of 1s": onesCount,
-      "Number of 0s": zerosCount,
-      "Max Continuous 1s": maxContinuousOnes,
-      "Max Continuous 0s": maxContinuousZeros
+      "Number of 1s": d.onesCount,
+      "Number of 0s": d.zerosCount,
+      "Continuous 1s" : d.continuousOnes,
+      "Continuous 0s" : d.continuousZeros,
+      "Max Continuous 1s": d.maxContinuousOnes,
+      "Max Continuous 0s": d.maxContinuousZeros
     };
   };
   
-  // Example data
-  const sampleData = [1, 0, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0, 1, 0];
-  
   // Generate summary
-  const summary = generateSummary(sampleData);
+  const summary = GenerateSummary(sampleData);
   
   // Output summary
   console.table(summary);

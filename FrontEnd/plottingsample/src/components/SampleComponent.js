@@ -1,32 +1,34 @@
 import React from 'react';
-
+import samples from '../Database/sampledata.json';
 class SampleComponent extends React.Component {
   render() {
-    const samples = [0, 1, null, 0, 1, null]; // Example sample data
     const getColor = (sample) => {
-      if (sample === 0) {
+      if (sample.vibration < 0 ) {
         return 'yellow';
-      } else if (sample === 1) {
+      } else if (sample.vibration>=1) {
         return 'green';
       } else {
+        console.log(sample);
         return 'red';
       }
     };
 
     return (
-      <div>
+      <div style={{marginTop : "180px"}}>
         {samples.map((sample, index) => (
           <div
             key={index}
             style={{
-              width: 50,
-              height: 50,
+              width: 0.1,
+              height: 22,
               backgroundColor: getColor(sample),
               display: 'inline-block',
-              margin: 5,
-            }}
-          />
-        ))}
+              margin: 0.15,
+              paddingTop : "4px"
+            }}><br></br><hr color='black' style={{marginBottom : '0.1em', marginTop : "0em"}}></hr>
+          </div>
+        ))
+        } 
       </div>
     );
   }
